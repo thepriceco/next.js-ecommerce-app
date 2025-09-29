@@ -2,7 +2,7 @@
   <img src='https://github.com/user-attachments/assets/3b3b3e7c-a2f6-4870-abd3-e0d38199fda7' width='300px'/>
 </p>
 <br/>
-Introducing a cutting-edge e-commerce platform built with Next.js, designed to support multiple stores effortlessly.
+A cutting-edge e-commerce platform built with Next.js, seamlessly designed to support multiple stores
 <hr/>
 <br/>
 <a href='https://www.priashop.com/'>Live preview</a>
