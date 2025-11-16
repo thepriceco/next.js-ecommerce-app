@@ -183,6 +183,15 @@ model Product {
   created_at               DateTime         @default(now())
   updated_at               DateTime         @updatedAt
   
+  // Inventory + pricing extensions
+  barcode           String?   @unique
+  amazonPrice       Decimal?  @db.Decimal(10, 2)
+  walmartPrice      Decimal?  @db.Decimal(10, 2)
+  ourRetailPrice    Decimal?  @db.Decimal(10, 2)
+  weightGrams       Int?
+  sourceAmazonUrl   String?
+  sourceWalmartUrl  String?
+
   categories               ProductCategory[]
   coupons                  Coupon[]
   order_items              OrderItem[]
@@ -192,6 +201,8 @@ model Product {
   image                    ProductImage[]
   attributes               ProductAttribute[]
 
+  inventoryItems           InventoryItem[]
+  inventoryLogs            InventoryLog[]
 
   store                    Store             @relation(fields: [store_id], references: [id], onDelete: Cascade)
   discount                 Discount?         @relation(fields: [discount_id], references: [id])
@@ -603,4 +614,26 @@ model SearchHistory {
   @@index([user_id, created_at])
 
   @@map("searchhistory")
+}
+
+model InventoryItem {
+  id         String   @id @default(cuid())
+  product    Product  @relation(fields: [productId], references: [id])
+  productId  String
+  location   String   // e.g. "MAIN", "Pallet-A1", "Truck-3"
+  quantity   Int      @default(0)
+  updatedAt  DateTime @updatedAt
+
+  @@unique([productId, location], name: "product_location")
+}
+
+model InventoryLog {
+  id            String   @id @default(cuid())
+  product       Product  @relation(fields: [productId], references: [id])
+  productId     String
+  location      String
+  delta         Int
+  reason        String   // "receive" | "sale" | "cycle" | "return" | "damage"
+  correlationId String
+  createdAt     DateTime @default(now())
 }
