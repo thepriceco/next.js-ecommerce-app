@@ -17,7 +17,7 @@ function NewPasswordForm() {
   const [formState, action] = useFormState(actions.newPassword, { errors: {} });
   const searchParams = useSearchParams();
 
-  const token = searchParams.get('token');
+  const token = searchParams?.get("token") ?? "";
   let validationErrors;
 
   if (
