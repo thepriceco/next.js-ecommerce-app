@@ -14,7 +14,7 @@ function FilterClean() {
   const { replace } = useRouter();
 
   useEffect(() => {
-    const filter = searchParams.get('filter');
+    const filter = searchParams?.get('filter') ?? '';
 
     const editedFilters = filter?.split(',').map((f) => {
       return {
