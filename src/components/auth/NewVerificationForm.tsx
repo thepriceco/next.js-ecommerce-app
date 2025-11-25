@@ -15,7 +15,7 @@ function NewVerificationForm() {
 
   const searchParams = useSearchParams();
 
-  const token = searchParams.get('token');
+  const token = searchParams?.get('token') ?? null;
 
   const onSubmit = useCallback(() => {
     if (!token) {
