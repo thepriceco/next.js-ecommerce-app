@@ -27,7 +27,7 @@ function FilterClean() {
   }, [searchParams]);
 
   const handleFilters = (filter: string, value: string) => {
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams?.toString() ?? '');
     const currentFilters = params.get('filter')?.split(',');
     const selFilterToDel = `${filter}:${value}`;
 
